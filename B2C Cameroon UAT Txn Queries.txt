@@ -1,0 +1,60 @@
+
+#bet txn request table
+SELECT * FROM st_sbs_uat_final.st_bet_txn_request WHERE id IN (3906,3907)
+
+#bet txn table
+SELECT * FROM st_sbs_uat_final.st_bet_txn
+WHERE bet_request_id IN(3906,3907)
+
+
+# Transaction Selection Table
+SELECT * FROM st_sbs_uat_final.st_bet_txn_selections WHERE transaction_id IN (
+SELECT id FROM st_sbs_uat_final.st_bet_txn WHERE bet_request_id IN (3906,3907))
+
+#Bet Transaction Master Table
+SELECT * FROM st_sbs_txn.st_bet_txn_master WHERE sbs_txn_request_id IN (
+SELECT id FROM st_sbs_uat_final.st_bet_txn_request WHERE id IN (3906,3907))
+
+#player credit table
+SELECT * FROM st_sbs_uat_final.st_player_credits WHERE bet_txn_id IN (
+SELECT id FROM st_sbs_uat_final.st_bet_txn WHERE bet_request_id IN (3906,3907))
+
+#Winning Txn Master Table
+SELECT * FROM st_sbs_txn.st_winning_txn_master WHERE sbs_credit_id IN (
+SELECT id  FROM st_sbs_uat_final.st_player_credits WHERE bet_txn_id IN (
+SELECT id FROM st_sbs_uat_final.st_bet_txn WHERE bet_request_id IN(3906,3907 )))
+
+#player debit table
+SELECT * FROM st_sbs_uat_final.st_player_debits WHERE bet_txn_id IN (
+SELECT id FROM st_sbs_uat_final.st_bet_txn WHERE bet_request_id IN (3906,3907))
+
+
+# Debit Txn Mster
+
+SELECT * FROM st_sbs_txn.st_debit_txn_master WHERE sbs_debit_id IN (
+SELECT id  FROM st_sbs_uat_final.st_player_debits WHERE bet_txn_id IN (
+SELECT id FROM st_sbs_uat_final.st_bet_txn WHERE bet_request_id IN(4251)))
+
+# bet settlement messages
+SELECT * FROM st_sbs_uat_final.st_br_bet_settlement_messages WHERE odd_uuid IN (
+SELECT odd_uuid FROM st_sbs_uat_final.st_bet_txn_selections WHERE transaction_id IN(
+SELECT id FROM st_bet_txn WHERE bet_request_id IN (3906,3907)))
+
+# Rollback bet settlement messages
+SELECT * FROM st_sbs_uat_final.st_br_rollback_bet_settlement_messages WHERE sbs_event_id IN(
+SELECT sbs_event_id FROM st_sbs_uat_final.st_br_bet_settlement_messages WHERE odd_uuid IN (
+SELECT odd_uuid FROM st_sbs_uat_final.st_bet_txn_selections WHERE transaction_id IN(
+SELECT id FROM st_sbs_uat_final.st_bet_txn WHERE bet_request_id IN (3906,3907))))
+
+
+# Bet Cancel Messages
+
+SELECT * FROM st_sbs_uat_final.st_br_bet_cancel_messages WHERE sbs_event_id IN ( SELECT event_id 
+FROM st_sbs_uat_final.st_bet_txn_selections WHERE transaction_id IN ( SELECT id FROM 
+st_sbs_uat_final.st_bet_txn WHERE bet_request_id =))
+
+#Rollback Bet Cancel Messages
+
+SELECT * FROM st_br_rollback_bet_cancel_messages WHERE sbs_event_id IN (SELECT event_id 
+FROM st_sbs_uat_final.st_bet_txn_selections WHERE transaction_id IN( SELECT id FROM 
+st_sbs_uat_final.st_bet_txn WHERE bet_request_id =))

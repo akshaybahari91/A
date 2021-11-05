@@ -1,0 +1,48 @@
+3392,3393
+=======================================================
+3405,3406.......... Draw 1 for cricket for testing rollover number... p10
+3443,3444............Draw 2 for cricket for testing rollover number....p8
+3505,3506.............
+
+=============================================================================================
+
+3508... Rugby Draw for testing rollover Number ...p1 Draw 1
+3510.... Rugby Draw for testing rollover Number.. p9 Draw 2
+3511................. Draw 3
+-----------------------------------
+3514.................Draw 4
+3515..................Draw 5
+3517...................Draw 6
+3522....................Draw 7
+3523.....................Draw 8 
+3528......................Draw 9
+
+
+
+12.75+6.38+8.5+14.88 = 
+
+
+
+-> Currency Symbol "R" is not showing in "Jackpot Topup" page in the followind input boxes:
+    i.Rollover Amount, ii.TopUp Amount, iii.Estimated jackpot amount
+-> "R" is not showing under "Winning Amount" column in "Transaction Report" column if winning amount is 0.
+-> "R" is not showing under "Winning Amount" column in "Draw wise Sale Report" column if winning amount is 0.
+=> "R" is not showing under "Winning Amount" column in "Ticket Sale Report" main page column if winning amount is 0.
+-> "R" is not showing under "Total Sale" label when there is no sale in "Draw Details" page in "Draw Cancellation".
+
+
+
+
+Draw_management, Draw Cancellation, Jackpot topup, Jackpot toup history,
+track ticket,Reorts,
+
+
+
+-> 805,..Pick 4 draw for pdf testing
+
+
+
+
+
+
+

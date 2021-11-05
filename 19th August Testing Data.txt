@@ -1,0 +1,50 @@
+Final Balance In Euro Before Doing Sale: 999,627.08
+
+Rank 1 = 1... Single Ticket of 1 euro
+       =95......Single tickt of 95 euro
+
+Rank 2 = 1........ Single Ticket of 1 euro
+       = 85........Single Tickets of 85 euro
+
+Rank 3 = 1........Single Ticket of 1 euro
+       =100....... Single Ticket Of 100 uro
+
+======================
+Multiple Line Multiple Tickets In Euro:
+->No. of line: 6561, Amount  in euro: 6561
+->No. Of line : 4374, No. of tickets = 80, Total Amount: 349,920
+-> No. Of Line: 6561, Amount in euro: 6561
+
+Final Balance After Sale: 636,302.08
+================================================================================================================
+
+Moving To Usd:
+Final Balance In USD Before Doing Sale: 985,806.27
+
+Rank 1 = 1... Single Ticket of 1 $
+       =95......Single tickt of 95 $
+
+Rank 2 = 1........ Single Ticket of 1 usd
+       = 85........Single Tickets of 85 usd
+
+Rank 3 = 1........Single Ticket of 1 usd
+       =100....... Single Ticket Of 100 usd
+
+================================================================
+Multiple Line Multiple Tickets In USD:
+->No. of line: 6561, Amount  in USD: 6561
+->No. of line: 6561, Amount  in USD: 6561
+->No. Of line : 4374, No. of tickets = 80, Total Amount: 349,920
+
+Final Balance After Sale: USD 622,481.27 ~~~~~ 622,479.27
+
+
+
+
+
+
+
+
+
+
+

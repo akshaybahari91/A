@@ -1,0 +1,31 @@
+113.... Claim Hold Draw Cancel
+114.....Result submission
+
+
+CLaim Hold... whentotal sale amounr>pool amount and ppr percent of sale less drawter than pool amount..Working fine
+Claim hold, when total sale till now less than pper amount .. working fine
+Result Approval ISsue from BO UI .. Working FIne
+Claim Hold.. when total sale till now, greater than pool amounr but ppr percent of toltal sale till noe less than 
+             pool amount.... Working fine
+
+Draw Freeze -Cancel.. with sale 
+
+Draw Freeze - Cancel.... Without Sale
+
+Draw Freeze ..Cancel in case of result mismatch... With Sale.....Have Issue
+
+Draw Freeze ..Cancel in case of result mismatch... Without Sale
+
+
+Euro Befor sale: 636,301.50
+Sale:1458+50 = 1508
+
+USD Befor Sale Balance:622,481.81
+Sale:96+50=146
+
+
+Issue: Not able to cancel draw that status is "Freeze" and "Result Status" is mismatch. Draw_id: 115
+       No, response message is coming in "cancel draw" api response. Blank response is coming
+->
+       
+

@@ -1,0 +1,34 @@
+105....................sale less ... Soccer 13
+106......................sale greater but ppr percent of sale less
+
+107...............................Cancel Cancel Cancel .. Both doains "USD" and "EURO"
+
+108......................CHeck sale and winning for both USD and Euro
+
+
+Clientdemo 1 ... Final Balance Before Sale: USD 985,820.07
+Rank 1... 80 tickets of 80 usd
+
+After Sale After Sale: 985,740.07
+
+
+
+
+Clientdeom 2........Final Balance Before Sale: EURO 999,672.25
+Rank 2... 100 tickets of 100 euro, 
+Rank 3.....50 tickets of 50 euro
+Final Balance After Sale: 999,522.25
+
+
+
+80+175.5 = 255.5
+
+USD CALCULATIONS: Sale : 255.5, 75/100*255.5 = 191.62 ~191.63
+
+Rank 1: 35 % = 67.06 ~67.07
+Rank 2 : 25 % = 47.90 ~47.91 = Euro  40.7235 ~ 40.72
+Rank 3: 40%  = 76.64 ~ 76.65 = Euro  65.1525 ~ 65.15
+ Total = 105.87
+ 
+999628.12 -999628.08 = 0.04
+

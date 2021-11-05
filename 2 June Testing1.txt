@@ -1,0 +1,32 @@
+Draw 1.. Rollover Input Amount: -2.8, ROllover Carryforward Amount: 57.8.. main draw.. CLaim Allow
+Total Rollover CarryForward AMount = 57.8-2.8=55
+
+Draw 2 ...Main Draw Roll Over input amount: 55,............CANCEL
+          Main Draw ROllover carry forward amount:134.2
+          Addon Draw ROllover carry forward amount:4
+
+Draw 3......
+
+
+
+---------------------------
+
+2478,2479.. Cricket Draw For Testing......
+
+169.53....169.5
+
+2484,2485.... Cricket Draw For Testing...
+
+==========================================================================
+
+Draw 1 : 2462,2463.......... Claim Allow  
+
+Draw 2:  2469,2470............Cancel
+
+Draw 3: 2471,2472..............Claim Allow
+
+
+&&&& Testing Purpose
+
+Draw 1: 2504,2505.. Have rollover amount Carry Forward amount in main draw only.. Claim Allow
+Draw 2:            .Have rollover carry forward amount in both main and addon draw. Cancel

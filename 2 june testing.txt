@@ -1,0 +1,14 @@
+1. Create 5 draws of Cricket
+2. Draw 1st... Have Rollover Carryforward Amount on both draw Main and Addon and will claim allow after some time
+-> Draw 2nd...Have Rollover Carryforward Amount on both draws Main and Addon and Draw_Cancel.
+->Draw 3rd....Have Rollover Carryforward amount on both draws main and Addon.Also have jackpot topup and estimated 
+              jackpot topup amount in main draw. And after some time draw will be claim allow.
+-> Draw 4th...No sale in this Draw. ONly cancel this draw after result submission and approve. In case of claim hold.
+-> Draw 5th...Have Sale and Rollover CarryForward Amount and claim allow after some time
+
+
+------------------------
+
+Draw_1: 2488,2489
+Draw 2: 2490,2491... Draw cancel after freeze . Habe sale on main draw only for 10 R
+Draw 3: 2494,2495

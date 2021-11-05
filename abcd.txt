@@ -1,0 +1,2 @@
+﻿"betType","stake","currency","userToken","weaverPlayerId","locale","selectedSystems","selections__eventId","selections__marketId","selections__oddId","selections__oddType","selections__oddValue","selections__sportId"
+"SINGLE","300","CFA","ee19c179e298d466aeacfc9d193a7b5a","2","en","1","128880","276","224001","DECIMAL","2.56","14"

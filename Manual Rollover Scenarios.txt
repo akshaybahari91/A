@@ -1,0 +1,24 @@
+Scenario 1:
+
+-> Manual Rollover from Draw A (on all three ranks) to Draw B... Draw A is CLaim Hold
+-> Draw B.... Sale and winning......Also, verify that rollover amount per rank of Draw A 
+                                    will add in the amount that come after calculatiing rank percentage 
+or first it add and then divided according to the rank percentage.
+-> Now Cancel Draw A
+
+
+USD Player Wallet Balnce Before Sale: $617,056.81
+
+Total Sale:3200.00, No. of Lines: 32 and No. Of tickets:100 .........Getting Server Timeout
+           3200.00, No. of Lines: 32 and No. Of tickets:100... Getting Server Timeout
+           1, No. of line : 1 and no. of tickets: 1.
+==============================================================================================================================
+
+Scenario 2:
+
+-> Manual Rollover from Draw A....(for two Ranks).. After CLaim Allow to Draw B.....Rank 1 and Rank 3 amount rollovr
+-> Draw B has winning in the 2 ranks in which amount is rollover... and have rank remaining balance..Rank 2 amount 
+rolovr
+-> Manual Rollover amount from Draw A and Draw B to Draw C
+
+

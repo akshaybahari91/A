@@ -1,0 +1,95 @@
+xmysql -h 10.160.10.112 -u app_user -p App_User@123 -d st_sle_ithuba_dev_new
+
+
+
+
+
+
+-> Jo final result submit hua hai usmain kis event ke kaun se option select hue hain kisi 1 draw ke...... Result Submission(only 'win' and 'cancel')
+-> Draw main jitne bhi tickets hain unki event_id, ticket_id and unke winning selections only(win and cancel)
+^ yadi ksii event ko cancel kara hai at the time of result submission then vo event 1 baar hi aani chaiye
+-> Winning Selections ko per rank se match karke division nikalni hai..and per ticket per rank main no. of winners calculate karne hain
+
+
+
+
+Query 1:
+SELECT semo.market_id,demo.draw_id,semo.event_id,demo.final_result
+FROM st_sl_sport_event_market_options semo JOIN st_sl_draw_event_market_options  demo
+ON semo.id = demo.sport_event_market_option_id
+WHERE demo.final_result IN('win','cancel') AND demo.draw_id IN (1211)
+GROUP BY demo.final_result,semo.event_id,semo.market_id;
+
+Query 2:
+SELECT semo.market_id,demo.draw_id,semo.event_id,bts.ticket_id,demo.final_result
+FROM st_sl_sport_event_market_options semo JOIN st_sl_draw_event_market_options  demo
+ON semo.id = demo.sport_event_market_option_id
+JOIN st_bet_txn_selections bts ON bts.event_id = semo.event_id
+WHERE demo.final_result IN('win','cancel') AND demo.draw_id IN (1211)
+GROUP BY demo.final_result,semo.event_id,semo.market_id,bts.ticket_id;
+
+Query 3:
+
+SELECT 
+COUNT(CASE WHEN final_result IN('win','cancel') THEN 1 ELSE 0 END)AS Winning_events FROM 
+
+(SELECT semo.market_id,demo.draw_id,semo.event_id,demo.final_result
+FROM st_sl_sport_event_market_options semo JOIN st_sl_draw_event_market_options  demo
+ON semo.id = demo.sport_event_market_option_id
+WHERE demo.final_result IN('win','cancel') AND demo.draw_id IN (2014)
+GROUP BY demo.final_result,semo.event_id,semo.market_id)k
+
+
+Query 4:
+SELECT bt.draw_id,bt.ticket_id,
+(SELECT
+COUNT(CASE WHEN final_result IN('win','cancel') THEN 1 ELSE 0 END)FROM 
+
+(SELECT semo.market_id,demo.draw_id,semo.event_id,demo.final_result
+FROM st_sl_sport_event_market_options semo JOIN st_sl_draw_event_market_options  demo
+ON semo.id = demo.sport_event_market_option_id
+WHERE demo.final_result IN('win','cancel') AND demo.draw_id IN (2014)
+GROUP BY demo.final_result,semo.event_id,semo.market_id)k)AS winning_events
+FROM st_bet_txn bt 
+WHERE bt.draw_id=2014
+GROUP BY bt.ticket_id
+
+
+Query 5:
+SELECT bt.draw_id,bt.ticket_id,bt.id AS transaction_id,
+(SELECT
+COUNT(CASE WHEN final_result IN('win','cancel') THEN 1 ELSE 0 END)FROM 
+
+(SELECT semo.market_id,demo.draw_id,semo.event_id,demo.final_result
+FROM st_sl_sport_event_market_options semo JOIN st_sl_draw_event_market_options  demo
+ON semo.id = demo.sport_event_market_option_id
+WHERE demo.final_result IN('win','cancel') AND demo.draw_id IN (1980)
+GROUP BY demo.final_result,semo.event_id,semo.market_id)k
+)AS winning_events
+FROM st_bet_txn bt 
+WHERE bt.draw_id=1980
+GROUP BY bt.ticket_id,bt.id
+
+Query 5 ** IMP
+
+SELECT demo.draw_id,bts.transaction_id,bts.ticket_id,
+COUNT(CASE WHEN bts.option_id = demo.sport_event_market_option_id THEN bts.event_id ELSE 0 END)AS Winning_events_on_transaction_id
+FROM st_bet_txn_selections bts JOIN st_sl_draw_event_market_options  demo
+ON bts.option_id = demo.sport_event_market_option_id
+WHERE demo.final_result IN('win','cancel') AND demo.draw_id IN (1850)
+GROUP BY demo.final_result,bts.transaction_id,bts.ticket_id
+
+
+Query 6 ****IMP
+
+
+
+
+
+
+
+
+
+
+
+

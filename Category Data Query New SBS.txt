@@ -1,0 +1,10 @@
+SELECT sbse.sport_id AS sportId,sbse.sport_category_id AS categoryId,sbse.tournament_session_id AS seasonId,COUNT( sbse.id) AS eventCount,sport.sequence 
+FROM st_br_sport_events sbse 
+INNER JOIN st_sports_master sport ON sbse.sport_id= sport.id 
+WHERE sbse.status= '0' 
+AND sbse.provider_scheduled_at_utc >=:fromDate 
+AND (:toDate IS NULL OR sbse.provider_scheduled_at_utc <=:toDate ) 
+AND sbse.provider='BET_RADAR' AND sport.status='ACTIVE' 
+AND EXISTS (SELECT 1 FROM st_br_market_outcome_odds sbmoo 
+WHERE  sbmoo.event_id = sbse.id) 
+GROUP BY sbse.sport_id,sbse.sport_category_id,tournament_session_id ORDER BY sport.sequence 

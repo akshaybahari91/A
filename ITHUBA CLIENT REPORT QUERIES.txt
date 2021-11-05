@@ -1,0 +1,146 @@
+
+
+--- Ecommerce Validation Report Query
+
+SELECT ssg.game_name AS game,sbt.ticket_date AS salesDate,ROUND(SUM(sbt.sale_amount_system),4) AS netSalesAmount,
+ROUND(SUM(sbt.winning_amount_system),4) AS netValidationAmount FROM st_bet_tickets sbt INNER JOIN st_sl_game ssg ON sbt.game_id=ssg.id WHERE sbt.ticket_date>=? 
+AND sbt.ticket_date<=?  AND sbt.status NOT IN ('FAILED','CANCELLED','SALE_REFUND_FAILED','INITIATED','AUTO_CANCELLED')  
+GROUP BY game_id,ticket_date  ORDER BY sbt.ticket_date,sbt.game_id
+
+
+----- Cash Report Query
+
+SELECT sbt.ticket_no AS ticketNumber,sbt.created_at AS sellTime,sbt.settled_at AS cashTime,ssd.draw_no AS drawNumber,
+btr.rank_1_count AS division1, btr.rank_2_count AS division2, btr.rank_3_count AS division3, btr.rank_4_count AS division4, 
+btr.rank_5_count AS division5, (btr.rank_1_amount + btr.rank_2_amount + btr.rank_3_amount + btr.rank_4_amount + btr.rank_5_amount) AS amountPaid 
+FROM st_sl_bet_ticket_rank_winning_data btr INNER JOIN st_bet_tickets sbt ON btr.ticket_id=sbt.id INNER JOIN st_sl_draws ssd ON sbt.draw_id=ssd.id 
+WHERE  sbt.settled_at IS NOT NULL AND sbt.ticket_date>=? AND sbt.ticket_date<=? AND sbt.game_id=? AND sbt.draw_id=?
+2021-06-29 11:59:31.759 DEBUG 12566       
+	
+
+
+-----------------------------------Liability Report
+
+SELECT ssd.draw_no AS draw ,rankData.draw_type, SUM(rank_1_count) AS rank1Count, SUM(rank_2_count) AS rank_2Count , SUM(rank_3_count) AS rank_3Count, 
+SUM(rank_4_count) AS rank_4Count, SUM(rank_5_count) AS rank_5Count, SUM(rank_1_amount) AS rank1Amount, SUM(rank_2_amount) AS rank2Amount, 
+SUM(rank_3_amount) AS rank3Amount, SUM(rank_4_amount) AS rank4Amount, SUM(rank_5_amount) AS rank5Amount, 
+SUM(CASE WHEN is_high_win =0 THEN rank_1_count ELSE 0 END ) AS totalPaidRank1Count, 
+SUM(CASE WHEN is_high_win =0 THEN rank_2_count ELSE 0 END ) AS totalPaidRank2Count, 
+SUM(CASE WHEN is_high_win =0 THEN rank_3_count ELSE 0 END ) AS totalPaidRank3Count, 
+SUM(CASE WHEN is_high_win =0 THEN rank_4_count ELSE 0 END ) AS totalPaidRank4Count,
+ SUM(CASE WHEN is_high_win =0 THEN rank_5_count ELSE 0 END ) AS totalPaidRank5Count, 
+SUM(CASE WHEN is_high_win =0 THEN rank_1_amount ELSE 0 END ) AS totalPaidRank1Amount, 
+SUM(CASE WHEN is_high_win =0 THEN rank_2_amount ELSE 0 END ) AS totalPaidRank2Amount, 
+SUM(CASE WHEN is_high_win =0 THEN rank_3_amount ELSE 0 END ) AS totalPaidRank3Amount, 
+SUM(CASE WHEN is_high_win =0 THEN rank_4_amount ELSE 0 END ) AS totalPaidRank4Amount, 
+SUM(CASE WHEN is_high_win =0 THEN rank_5_amount ELSE 0 END ) AS totalPaidRank5Amount, 
+SUM(CASE WHEN is_high_win =0 AND settled_at>=? AND settled_at<=? THEN rank_1_count ELSE 0 END ) AS paidOnRank1Count, 
+SUM(CASE WHEN is_high_win =0 AND settled_at>=? AND settled_at<=? THEN rank_2_count ELSE 0 END ) AS paidOnRank2Count, 
+SUM(CASE WHEN is_high_win =0 AND settled_at>=? AND settled_at<=? THEN rank_3_count ELSE 0 END ) AS paidOnRank3Count,
+ SUM(CASE WHEN is_high_win =0 AND settled_at>=? AND settled_at<=? THEN rank_4_count ELSE 0 END ) AS paidOnRank4Count, 
+SUM(CASE WHEN is_high_win =0 AND settled_at>=? AND settled_at<=? THEN rank_5_count ELSE 0 END ) AS paidOnRank5Count, 
+SUM(CASE WHEN is_high_win =0 AND settled_at>=? AND settled_at<=? THEN rank_1_amount ELSE 0 END ) AS paidOnRank1Amount, 
+SUM(CASE WHEN is_high_win =0 AND settled_at>=? AND settled_at<=? THEN rank_2_amount ELSE 0 END ) AS paidOnRank2Amount, 
+SUM(CASE WHEN is_high_win =0 AND settled_at>=? AND settled_at<=? THEN rank_3_amount ELSE 0 END ) AS paidOnRank3Amount,
+ SUM(CASE WHEN is_high_win =0 AND settled_at>=? AND settled_at<=? THEN rank_4_amount ELSE 0 END ) AS paidOnRank4Amount, 
+SUM(CASE WHEN is_high_win =0 AND settled_at>=? AND settled_at<=? THEN rank_5_amount ELSE 0 END ) AS paidOnRank5Amount, 
+SUM(CASE WHEN is_high_win =1 AND settled_at>=? AND settled_at<=? THEN rank_1_count ELSE 0 END ) AS expiredOnRank1Count, 
+SUM(CASE WHEN is_high_win =1 AND settled_at>=? AND settled_at<=? THEN rank_2_count ELSE 0 END ) AS expiredOnRank2Count, 
+SUM(CASE WHEN is_high_win =1 AND settled_at>=? AND settled_at<=? THEN rank_3_count ELSE 0 END ) AS expiredOnRank3Count, 
+SUM(CASE WHEN is_high_win =1 AND settled_at>=? AND settled_at<=? THEN rank_4_count ELSE 0 END ) AS expiredOnRank4Count, 
+SUM(CASE WHEN is_high_win =1 AND settled_at>=? AND settled_at<=? THEN rank_5_count ELSE 0 END ) AS expiredOnRank5Count,
+ SUM(CASE WHEN is_high_win =1 AND settled_at>=? AND settled_at<=? THEN rank_1_amount ELSE 0 END ) AS expiredOnRank1_amount, 
+SUM(CASE WHEN is_high_win =1 AND settled_at>=? AND settled_at<=? THEN rank_2_amount ELSE 0 END ) AS expiredOnRank2_amount, 
+SUM(CASE WHEN is_high_win =1 AND settled_at>=? AND settled_at<=? THEN rank_3_amount ELSE 0 END ) AS expiredOnRank3_amount, 
+SUM(CASE WHEN is_high_win =1 AND settled_at>=? AND settled_at<=? THEN rank_4_amount ELSE 0 END ) AS expiredOnRank4_amount, 
+SUM(CASE WHEN is_high_win =1 AND settled_at>=? AND settled_at<=? THEN rank_5_amount ELSE 0 END ) AS expiredOnRank5_amount, 
+SUM(CASE WHEN is_high_win =1 AND settled_at <? THEN rank_1_count ELSE 0 END ) AS expiredRank1Count, SUM(CASE WHEN is_high_win =1 
+AND settled_at <? THEN rank_2_count ELSE 0 END ) AS expiredRank2Count, SUM(CASE WHEN is_high_win =1 
+AND settled_at <? THEN rank_3_count ELSE 0 END ) AS expiredRank3Count, SUM(CASE WHEN is_high_win =1 
+AND settled_at <? THEN rank_4_count ELSE 0 END ) AS expiredRank4Count, SUM(CASE WHEN is_high_win =1
+ AND settled_at <? THEN rank_5_count ELSE 0 END ) AS expiredRank5Count, SUM(CASE WHEN is_high_win =1 
+AND settled_at <? THEN rank_1_amount ELSE 0 END ) AS expiredRank1Amount, SUM(CASE WHEN is_high_win =1
+ AND settled_at <? THEN rank_2_amount ELSE 0 END ) AS expiredRank2Amount, SUM(CASE WHEN is_high_win =1 
+AND settled_at <? THEN rank_3_amount ELSE 0 END ) AS expiredRank3Amount, SUM(CASE WHEN is_high_win =1 
+AND settled_at <? THEN rank_4_amount ELSE 0 END ) AS expiredRank4Amount, SUM(CASE WHEN is_high_win =1 
+AND settled_at <? THEN rank_5_amount ELSE 0 END ) AS expiredRank5Amount 
+FROM st_sl_bet_ticket_rank_winning_data rankData INNER JOIN st_sl_draws ssd ON ssd.id=rankData.main_draw_id 
+WHERE ssd.game_id=? AND ssd.draw_date_time>=? AND ssd.draw_date_time<=?  GROUP BY ssd.draw_no,rankData.draw_type
+
+-----------------------------------Liability Summary Report
+
+SELECT ssd.draw_no AS draw, SUM(CASE WHEN sbt.is_high_win =0 THEN 1 ELSE 0 END ) AS totalPaidCount, 
+SUM(CASE WHEN sbt.is_high_win =0 THEN sbt.winning_amount_system ELSE 0 END ) AS totalPaidAmount, 
+SUM(CASE WHEN sbt.is_high_win =0 AND sbt.settled_at>=? AND sbt.settled_at<=?  THEN 1 ELSE 0 END ) AS paidOnCount,
+SUM(CASE WHEN sbt.is_high_win =0 AND sbt.settled_at>=? AND sbt.settled_at<=? THEN sbt.winning_amount_system ELSE 0 END ) AS paidOnAmount, 
+SUM(CASE WHEN sbt.is_high_win =1 AND sbt.settled_at>=? AND sbt.settled_at<=?  THEN 1 ELSE 0 END ) AS expiredOnTicketCount, 
+SUM(CASE WHEN sbt.is_high_win =1 AND sbt.settled_at>=? AND sbt.settled_at<=? THEN sbt.winning_amount_system ELSE 0 END ) AS expiredOnTicketWinningAmount ,
+ SUM(CASE WHEN sbt.is_high_win =1 AND sbt.settled_at <?  THEN 1 ELSE 0 END ) AS expiredTicketCount, 
+SUM(CASE WHEN sbt.is_high_win =1 AND sbt.settled_at <? THEN sbt.winning_amount_system ELSE 0 END ) AS expiredTicketWinningAmount  
+FROM st_bet_tickets sbt INNER JOIN st_sl_draws ssd ON sbt.draw_id=ssd.id  
+WHERE sbt.game_id=? AND sbt.winning_status='WIN' AND ssd.draw_date_time>=? AND ssd.draw_date_time<=? 
+GROUP BY sbt.draw_id
+
+-------------------------------------Expired Ticket Report
+
+SELECT ssg.game_name AS game,sbt.ticket_no AS ticketNumber, ssd.id,ssd.draw_no AS draw,rankData.draw_type,
+rankData.rank_1_count AS div1, rankData.rank_2_count AS div2, rankData.rank_3_count AS div3, rankData.rank_4_count AS div4, 
+rankData.rank_5_count AS div5,rankData.rank_1_amount AS div1Amt, 
+rankData.rank_2_amount AS div2Amt, rankData.rank_3_amount AS div3Amt, rankData.rank_4_amount AS div4Amt, 
+rankData.rank_5_amount AS div5Amt  
+FROM st_sl_bet_ticket_rank_winning_data  rankData INNER JOIN st_bet_tickets sbt ON rankData.ticket_id=sbt.id 
+INNER JOIN st_sl_draws ssd ON rankData.main_draw_id = ssd.id 
+INNER JOIN st_sl_game ssg ON ssg.id=ssd.game_id 
+WHERE sbt.game_id=? AND rankData.main_draw_id=? AND sbt.settled_at>=? 
+AND sbt.settled_at<=? AND rankData.settled_at<? GROUP BY rankData.draw_type,ssg.game_name,sbt.id
+
+----------------------------------------Winner Report
+
+SELECT ssg.game_name AS game,addOnGame.game_name AS addonGame, (CASE WHEN addOnGame.game_name IS NOT NULL THEN 1 ELSE 0 END ) AS isAddOn,  
+COUNT(CASE WHEN sbt.main_draw_sale_amount_system > 0 AND sbt.status !='CANCELLED' THEN 1 END) AS netSalesTxn,   
+SUM(CASE WHEN sbt.main_draw_sale_amount_system > 0 AND sbt.status !='CANCELLED'THEN sbt.main_draw_sale_amount_system ELSE 0 END) AS netSalesAmount,  
+COUNT(CASE WHEN sbt.addon_draw_sale_amount_system > 0 AND sbt.status !='CANCELLED' THEN 1 END) addOnSalesTxn,  
+SUM(CASE WHEN sbt.addon_draw_sale_amount_system > 0 AND sbt.status !='CANCELLED' THEN sbt.addon_draw_sale_amount_system ELSE 0 END ) addOnSalesAmount, 
+COUNT(CASE WHEN sbt.main_draw_sale_amount_system > 0 AND sbt.status ='CANCELLED' THEN 1 END) AS cancelSalesTxn, 
+SUM(CASE WHEN sbt.main_draw_sale_amount_system > 0 AND sbt.status ='CANCELLED' THEN sbt.main_draw_sale_amount_system ELSE 0 END) AS cancelSalesAmount,
+COUNT(CASE WHEN sbt.addon_draw_sale_amount_system > 0 AND sbt.status ='CANCELLED' THEN 1 END) addOnCancelSalesTxn, 
+SUM(CASE WHEN sbt.addon_draw_sale_amount_system > 0 AND sbt.status ='CANCELLED' THEN sbt.addon_draw_sale_amount_system ELSE 0 END ) addOnCancelSalesAmount  
+FROM st_bet_tickets sbt INNER JOIN st_sl_game ssg ON ssg.id=sbt.game_id LEFT JOIN st_sl_game addOnGame ON addOnGame.parent_game_id= ssg.id 
+WHERE sbt.game_id =? AND sbt.ticket_date>=? AND sbt.ticket_date<=?  
+AND EXISTS (SELECT ticket_id FROM st_sl_bet_ticket_rank_winning_data rankData WHERE rankData.ticket_id = sbt.id ) 
+AND  draw_id=?  AND sbt.status NOT IN ('FAILED','CANCELLED','SALE_REFUND_FAILED','INITIATED','AUTO_CANCELL	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
